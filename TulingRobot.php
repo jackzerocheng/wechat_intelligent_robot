@@ -13,8 +13,6 @@ namespace App;
 
 class TulingRobot
 {
-    const API_KEY = '';//创建图灵机器人后获取
-    const USER_ID = '';//注册图灵账号后获取
     const TULING_URL = 'http://openapi.tuling123.com/openapi/api/v2';//图灵接口地址
 
     /**
@@ -42,17 +40,21 @@ class TulingRobot
                 ]
             ],
             'userInfo' => [
-                'apiKey' => self::API_KEY,
-                'userId' => self::USER_ID
+                'apiKey' => Config::API_KEY,
+                'userId' => Config::USER_ID
             ],
         ];
 
         $response = $this->postRequest(self::TULING_URL, json_encode($data));
 
-        $rs = [];
+        $rs = '';
         if (!empty($response)) {
             $response = json_decode($response, true);
             $rs = $response['results']['values']['text'];
+        }
+
+        if ($rs == '请求次数超限制!') {
+            $rs = '机器人今天去休息了，请明天再试';
         }
 
         return $rs;

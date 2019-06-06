@@ -3,6 +3,7 @@
  * Message: 微信公众号智能机器人插件 - 欢迎关注微信公众号：异次元程序员 一起交流学习
  * User: jzc
  * Email: igetjzc@outlook.com
+ * Blog： https://blog.csdn.net/qq_34694342
  * Date: 2019/6/5
  * Time: 7:22 PM
  * Return:
@@ -11,14 +12,10 @@
 namespace App;
 
 use App\Lib\WxBizMsgCrypt;
+use App\Config;
 
-class Index
+class index
 {
-    const WX_TOKEN = 'abcdefg';//微信公众号的token - 改为自己的
-
-    //特定条件或事件下回复该文案 - 自行修改
-    public $helpStr = "感谢关注*异次元程序员*！\n需要帮助请发送@帮助@；\n其他留言则由智能客服处理。感谢支持~~";
-
     public function run()
     {
         $params = $_GET;
@@ -61,7 +58,7 @@ class Index
          * 事件推送 -- 订阅消息/取消订阅
          */
         if (isset($content['Event'])) {
-            echo $this->transferMsg($content, $this->helpStr);
+            echo $this->transferMsg($content, Config::HELP_STRING);
             exit();
         }
 
@@ -123,7 +120,7 @@ class Index
             return '';
         }
 
-        $tmpArray = array(self::WX_TOKEN, $params['timestamp'], $params['nonce']);
+        $tmpArray = array(Config::WX_TOKEN, $params['timestamp'], $params['nonce']);
         sort($tmpArray, SORT_STRING);
         $tmpStr = implode($tmpArray);
         $tmpStr = sha1($tmpStr);
@@ -185,7 +182,7 @@ class Index
         switch ($content['Content']) {
             //帮助
             case $content['Content'] == '@帮助@' :
-                $finalStr = $this->helpStr;
+                $finalStr = Config::HELP_STRING;
                 break;
             //默认，人工智障
             default :
@@ -198,4 +195,4 @@ class Index
 }
 
 
-(new Index())->run();
+(new index())->run();
