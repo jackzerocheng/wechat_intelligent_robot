@@ -47,12 +47,12 @@ class TulingRobot
             ],
         ];
 
-        $data = $this->postRequest(self::TULING_URL, $data);
+        $response = $this->postRequest(self::TULING_URL, json_encode($data));
 
         $rs = [];
-        if (!empty($data)) {
-            $data = json_decode($data, true);
-            $rs = $data['results']['values']['text'];
+        if (!empty($response)) {
+            $response = json_decode($response, true);
+            $rs = $response['results']['values']['text'];
         }
 
         return $rs;
