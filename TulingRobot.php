@@ -53,10 +53,6 @@ class TulingRobot
             $rs = $response['results']['values']['text'];
         }
 
-        if ($rs == '请求次数超限制!') {
-            $rs = '机器人今天去休息了，请明天再试';
-        }
-
         return $rs;
     }
 
