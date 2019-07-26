@@ -7,6 +7,8 @@
 
 > 第三方接口：图灵机器人(https://www.kancloud.cn/turing/www-tuling123-com/718218)
 
+> 博客教程：https://blog.csdn.net/qq_34694342/article/details/91043249
+
 ## 使用步骤
 1. 申请微信公众号
 2. 注册图灵机器人平台账号并创建一个机器人
